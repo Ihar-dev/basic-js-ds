@@ -13,6 +13,7 @@ module.exports = class BinarySearchTree {
   constructor() {
     this.root1 = null;
   }
+
   root() {
     return this.root1;
   }
@@ -42,9 +43,14 @@ module.exports = class BinarySearchTree {
     }
   }
 
-  has( /* data */ ) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  preOrder(node, data) {
+    if (!node) return false;
+    if (node.data == data) return true;
+    return (data < node.data) ? this.preOrder(node.left, data) : this.preOrder(node.right, data);
+  }
+
+  has(data) {
+    return this.preOrder(this.root1, data);
   }
 
   find( /* data */ ) {
