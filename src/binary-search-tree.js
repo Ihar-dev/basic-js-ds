@@ -24,7 +24,6 @@ module.exports = class BinarySearchTree {
       this.root1 = newNode;
       return;
     }
-
     let currentNode = this.root1;
     while (currentNode) {
       if (newNode.data < currentNode.data) {
@@ -59,9 +58,33 @@ module.exports = class BinarySearchTree {
     return this.preOrder(this.root1, data, 'find');
   }
 
-  remove( /* data */ ) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  allNode(node, data) {
+    if (data > node.data) {
+      node.right = this.allNode(node.right, data);
+      return node;
+    } else if (data < node.data) {
+      node.left = this.allNode(node.left, data);
+      return node;
+    }
+    if (!node.left) {
+      node = node.right;
+      return node;
+    }
+    if (!node.right) {
+      node = node.left;
+      return node;
+    }
+    let data1 = node.right;
+    while (data1.left) {
+      data1 = data1.left;
+    }
+    node.data = data1.data;
+    node.right = this.allNode(node.right, node.data);
+    return node;
+  }
+
+  remove(data) {
+    this.root1 = this.allNode(this.root1, data);
   }
 
   left(node) {
