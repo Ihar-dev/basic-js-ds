@@ -43,19 +43,20 @@ module.exports = class BinarySearchTree {
     }
   }
 
-  preOrder(node, data) {
-    if (!node) return false;
-    if (node.data == data) return true;
-    return (data < node.data) ? this.preOrder(node.left, data) : this.preOrder(node.right, data);
+  preOrder(node, data, mode) {
+    if (!node && mode === 'has') return false;
+    else if (!node && mode === 'find') return null;
+    if (node.data == data && mode === 'has') return true;
+    else if (node.data == data && mode === 'find') return node;
+    return (data < node.data) ? this.preOrder(node.left, data, mode) : this.preOrder(node.right, data, mode);
   }
 
   has(data) {
-    return this.preOrder(this.root1, data);
+    return this.preOrder(this.root1, data, 'has');
   }
 
-  find( /* data */ ) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  find(data) {
+    return this.preOrder(this.root1, data, 'find');
   }
 
   remove( /* data */ ) {
